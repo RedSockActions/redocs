@@ -16,6 +16,7 @@ inputs:
     required: false
   redocs_config:
     description: "url to redocs config"
+    required: false
 outputs:
   link:
     value: ${{ steps.deploy.outputs.tag }}
@@ -23,15 +24,29 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Validate
+    - name: Validation
+      id: validation
       env:
+        REDOCS_BASE: ${{ inputs.base }}
         REDOCS_CONFIG: ${{ inputs.redocs_config}}
+        SERVER_URL: ${{ github.server_url }}
+        REPOSITORY: ${{ github.repository }}
+        REPOSITORY_NAME: ${{ github.event.repository.name }}
       shell: python
       run: |
         import os
         
-        if os.environ['REDOCS_CONFIG'] == '':
-            raise Exception('ReDocs config is not configured')
+        redocs_config = os.environ['REDOCS_CONFIG']
+        if redocs_config == '':
+            redocs_config = os.environ['SERVER_URL'] + os.environ['REPOSITORY']
+        
+        base = os.environ['REDOCS_BASE']
+        if base == '':
+            base = os.environ['REPOSITORY_NAME']
+        
+        with open(os.environ['GITHUB_OUTPUT'], "a") as f:
+            print("{0}={1}".format('base', base), file=f)
+            print("{0}={1}".format('config', redocs_config), file=f)
 
     - uses: actions/checkout@v4
       with:
@@ -43,21 +58,15 @@ runs:
         node-version: '20.x'
       run: yarn install
 
-    - name: Build
-      env:
-        BASE: ${{ inputs.base }}
-        REDOCS_CONFIG: ${{ inputs.redocs_config }}
-      shell: bash
-      run: |
-        rm -f .env
-        echo "VITE_BASE=\"${{inputs.base}}\"\nVITE_REDOCS_CONFIG=${{inputs.redocs_config}}" > .env
-
     - name: Install dependencies
       uses: bahmutov/npm-install@v1
 
     - name: Build project
+      env:
+        BASE: ${{ steps.validation.base }}
+        CONFIG: ${{ steps.validation.config }}
       shell: bash
-      run: npm run build
+      run: VITE_BASE=\"$BASE\"\nVITE_REDOCS_CONFIG=$CONFIG npm run build
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3

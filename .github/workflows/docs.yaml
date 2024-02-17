@@ -5,7 +5,7 @@ on:
     inputs:
       base:
         description: "Base of docs"
-        default: ${{ github.event.repository.name }}
+        default: ""
       redocs_config:
         description: "URL to redocs config"
         default: ""
