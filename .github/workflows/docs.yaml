@@ -1,0 +1,26 @@
+name: docs-actions
+run-name: UpdateDocs
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Base of docs"
+        default: ${{ github.event.repository.name }}
+      redocs_config:
+        description: "URL to redocs config"
+        default: ""
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validation
+        run: |
+          
+
+      - name: Docs
+        id: release
+        uses: RedSockActions/release_tag@v1.1.0
+        with:
+          token: ${{ github.token }}
+      - name: Read new tag
+        run: echo ${{ steps.release.outputs.tag }}
