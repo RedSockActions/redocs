@@ -62,6 +62,7 @@ runs:
 
     - name: Install dependencies
       uses: bahmutov/npm-install@v1
+      run: yarn install
 
     - name: Build project
       env:
@@ -70,8 +71,12 @@ runs:
       shell: bash
       run: |
         yarn install
-        rm -f .env
-        echo "VITE_BASE=\"$BASE\"\nVITE_REDOCS_CONFIG=$CONFIG" > .env
+        
+        echo "VITE_BASE=\"$BASE\"" 
+        echo "VITE_REDOCS_CONFIG=$CONFIG"
+        
+        echo "VITE_BASE=\"$BASE\"" > .env
+        echo "VITE_REDOCS_CONFIG=$CONFIG" >> .env
         npm run build
 
     - name: Setup Pages
