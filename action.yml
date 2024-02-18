@@ -44,6 +44,9 @@ runs:
         if base == '':
             base = os.environ['REPOSITORY_NAME']
         
+        if base[0] != '/':
+            base = '/'+base
+            
         with open(os.environ['GITHUB_OUTPUT'], "a") as f:
             print("{0}={1}".format('base', base), file=f)
             print("{0}={1}".format('config', redocs_config), file=f)
