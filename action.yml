@@ -64,9 +64,6 @@ runs:
       uses: bahmutov/npm-install@v1
 
     - name: Build project
-      with:
-        BASE:
-        CONFIG:
       shell: bash
       run: |
         yarn install
