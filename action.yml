@@ -29,7 +29,8 @@ runs:
       env:
         REDOCS_BASE: ${{ inputs.base }}
         REDOCS_CONFIG: ${{ inputs.redocs_config}}
-        SERVER_URL: ${{ github.server_url }}
+        SERVER_URL: https://raw.githubusercontent.com/
+        BRANCH: ${{ github.ref }}
         REPOSITORY: ${{ github.repository }}
         REPOSITORY_NAME: ${{ github.event.repository.name }}
       shell: python
@@ -38,15 +39,18 @@ runs:
         
         redocs_config = os.environ['REDOCS_CONFIG']
         if redocs_config == '':
-            redocs_config = os.environ['SERVER_URL'] + os.environ['REPOSITORY']
+            redocs_config = os.environ['SERVER_URL'] + \
+            os.environ['REPOSITORY'] + \
+            '/' + os.environ['BRANCH'].replace('refs/heads/', '') + \
+            '/redocs.json'
         
         base = os.environ['REDOCS_BASE']
         if base == '':
             base = os.environ['REPOSITORY_NAME']
         
         if base[0] != '/':
-            base = '/'+base
-            
+            base = '/' + base
+        
         with open(os.environ['GITHUB_OUTPUT'], "a") as f:
             print("{0}={1}".format('base', base), file=f)
             print("{0}={1}".format('config', redocs_config), file=f)
