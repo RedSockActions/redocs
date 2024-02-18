@@ -70,7 +70,9 @@ runs:
       shell: bash
       run: |
         yarn install
-        VITE_BASE=\"$BASE\"\nVITE_REDOCS_CONFIG=$CONFIG npm run build
+        rm -f .env
+        echo "VITE_BASE=\"$BASE\"\nVITE_REDOCS_CONFIG=$CONFIG" > .env
+        npm run build
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
