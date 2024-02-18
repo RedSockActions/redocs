@@ -13,6 +13,6 @@ jobs:
   tag-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: RedSockActions/redocs@v0.0.9
+      - uses: RedSockActions/redocs@v0.0.10
         with:
           token: ${{ github.token }}
