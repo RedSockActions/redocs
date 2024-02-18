@@ -13,4 +13,4 @@ jobs:
   tag-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: RedSockActions/redocs@v0.0.3
+      - uses: RedSockActions/redocs@v0.0.4
