@@ -64,18 +64,18 @@ runs:
       uses: bahmutov/npm-install@v1
 
     - name: Build project
-      env:
-        BASE: ${{ steps.validation.base }}
-        CONFIG: ${{ steps.validation.config }}
+      with:
+        BASE:
+        CONFIG:
       shell: bash
       run: |
         yarn install
         
-        echo "VITE_BASE=\"$BASE\"" 
-        echo "VITE_REDOCS_CONFIG=$CONFIG"
+        echo "VITE_BASE=\"${{ steps.validation.base }}\"" 
+        echo "VITE_REDOCS_CONFIG=${{ steps.validation.config }}"
         
-        echo "VITE_BASE=\"$BASE\"" > .env
-        echo "VITE_REDOCS_CONFIG=$CONFIG" >> .env
+        echo "VITE_BASE=\"${{ steps.validation.base }}\"" > .env
+        echo "VITE_REDOCS_CONFIG=${{ steps.validation.config }}" >> .env
         npm run build
 
     - name: Setup Pages
