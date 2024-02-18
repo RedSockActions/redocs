@@ -68,11 +68,11 @@ runs:
       run: |
         yarn install
         
-        echo "VITE_BASE=\"${{ steps.validation.base }}\"" 
-        echo "VITE_REDOCS_CONFIG=${{ steps.validation.config }}"
+        echo "VITE_BASE=\"${{ steps.validation.outputs.base }}\"" 
+        echo "VITE_REDOCS_CONFIG=${{ steps.validation.outputs.config }}"
         
-        echo "VITE_BASE=\"${{ steps.validation.base }}\"" > .env
-        echo "VITE_REDOCS_CONFIG=${{ steps.validation.config }}" >> .env
+        echo "VITE_BASE=\"${{ steps.validation.outputs.base }}\"" > .env
+        echo "VITE_REDOCS_CONFIG=${{ steps.validation.outputs.config }}" >> .env
         npm run build
 
     - name: Setup Pages
