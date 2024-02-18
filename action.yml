@@ -56,7 +56,7 @@ runs:
         repository: 'Red-Sock/ReDocs'
 
     - name: Use Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '20.x'
 
@@ -72,8 +72,11 @@ runs:
         yarn install
         VITE_BASE=\"$BASE\"\nVITE_REDOCS_CONFIG=$CONFIG npm run build
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
       with:
-        github_token: ${{ inputs.token }}
-        publish_dir: ./dist
+        branch: gh-pages
+        folder: ./dist
