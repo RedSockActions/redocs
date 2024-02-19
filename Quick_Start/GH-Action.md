@@ -16,7 +16,7 @@ on:
         description: "URL to redocs config"
         default: ""
 jobs:
-  tag-release:
+  ReDocs-launch:
     runs-on: ubuntu-latest
     steps:
       - uses: RedSockActions/redocs@v0.0.14
