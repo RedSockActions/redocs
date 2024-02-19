@@ -1,7 +1,8 @@
 # Quick Start
 ## GitHub actions
-Manual start with GitHub Pages
+Manual start with GitHub Pages.
 
+Create following action at `.github/workflows/docs.yaml`
 ```yaml
 name: docs-actions
 run-name: UpdateDocs
