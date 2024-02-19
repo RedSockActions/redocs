@@ -6,6 +6,20 @@
     {
       "name": "Introduction",
       "link": "/README.md"
+    },
+    {
+      "name": "Quick Start",
+      "link": "Quick_Start",
+      "inner": [
+        {
+          "name": "Github action",
+          "link": "/GH-Action.md"
+        },
+        {
+          "name": "Config",
+          "link": "/Config.md"
+        }
+      ]
     }
   ]
 }
