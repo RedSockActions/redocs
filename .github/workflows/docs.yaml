@@ -1,0 +1,18 @@
+name: docs-actions
+run-name: UpdateDocs
+on:
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Base of docs"
+        default: ""
+      redocs_config:
+        description: "URL to redocs config"
+        default: ""
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: RedSockActions/redocs@v0.0.14
+        with:
+          token: ${{ github.token }}
