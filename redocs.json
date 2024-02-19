@@ -1,0 +1,11 @@
+{
+  "tittle": "ReDocs action",
+  "link": "https://raw.githubusercontent.com/RedSockActions/redocs/redocs/",
+  "basicPage": "Introduction",
+  "sections": [
+    {
+      "name": "Introduction",
+      "link": "/README.md"
+    }
+  ]
+}

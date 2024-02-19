@@ -1,2 +1,4 @@
-# 
-###### Made by RedSock with love for coding 
+# ReDocs GitHub action
+## Usage
+
+**Made by RedSock with love for coding** 
